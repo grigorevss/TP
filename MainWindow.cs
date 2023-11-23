@@ -16,5 +16,10 @@ namespace lab_2
         {
             InitializeComponent();
         }
+        public static void onClickAddPlaylist(String name)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
