@@ -10,5 +10,6 @@ namespace lab_2
     {
         string name { get; set; }
         List<int> list { get; set; }
+        bool createPlaylist(string name);
     }
 }
