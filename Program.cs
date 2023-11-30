@@ -12,10 +12,16 @@ namespace lab_2
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+#if DEBUG
+            if (args.Length > 0)
+            {
+                ManageClass.index = Convert.ToInt32(args[0]);
+            }
+#endif
             Application.Run(new MainWindow());
         }
     }

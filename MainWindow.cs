@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace lab_2
 {
@@ -16,8 +17,9 @@ namespace lab_2
         public MainWindow()
         {
             InitializeComponent();
+            controller = ManageClass.GetPlaylist();
         }
-        public  bool onClickAddPlaylist(String name)
+        public bool onClickAddPlaylist(String name)
         {
 
             if (checkName(name))
@@ -25,7 +27,7 @@ namespace lab_2
                 if (controller.createPlaylist(name))
                 {
                     //SoundPlayer.setCurrentPlaylist(name);
-                    //showPlaylist(name);
+                    showPlaylist(name);
                     return true;
                 }
                 else 
@@ -61,7 +63,11 @@ namespace lab_2
                 "LPT2", "LPT3", "LPT4", "LPT5", "LPT5", "LPT7", "LPT8", "LPT9", "LPTNO", "LPTSCSI" };
             foreach (string reservedName in reservedNames) 
             { 
-                System.Text.RegularExpressions.Regex tmp_regex = new System.Text.RegularExpressions.Regex(@"(^" + @reservedName + @"$|^" + @reservedName + @"[.]+(\w)*)", 
+                System.Text.RegularExpressions.Regex tmp_regex = new System.Text.RegularExpressions.Regex(@"(^"
+                                                                                                          + @reservedName
+                                                                                                          + @"$|^"
+                                                                                                          + @reservedName
+                                                                                                          + @"[.]+(\w)*)", 
                     System.Text.RegularExpressions.RegexOptions.IgnoreCase);
                 if (tmp_regex.IsMatch(name))
                 {
@@ -69,6 +75,23 @@ namespace lab_2
                 }
             }
             return true;
+        }
+
+        public void showPlaylist(string name)
+        {
+            CurrentPlaylistName.Text = name;
+        }
+
+        private void CreatePlaylistButton_Click(object sender, EventArgs e)
+        {
+            try 
+            { 
+                onClickAddPlaylist(NewPlaylistName.Text);
+            }
+            catch (Exception exception) 
+            {
+                MessageBox.Show(exception.Message, "Error!");
+            }
         }
     }
     public static class ExceptionStrings
